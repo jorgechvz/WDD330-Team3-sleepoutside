@@ -5,9 +5,22 @@ function renderCartContents() {
   console.log(cartItems);
   if (cartItems.length) {
     const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-    document.querySelector('.product-list').innerHTML = htmlItems.join('');
+    const productList = document.querySelector('.product-list');
+    if (productList){
+      productList.innerHTML = htmlItems.join('');
+    }
   }
 }
+function getLenghtCart(){ 
+  const getCartItems = getLocalStorage('so-cart');
+  const lengthCart = getCartItems.length;
+  return lengthCart;
+}
+export default function renderLengthCart(selector){
+  const lengthCart = document.querySelector(selector);
+  lengthCart.innerHTML = getLenghtCart();
+}
+renderLengthCart('.length-cart');
 
 function cartItemTemplate(item) {
   return `<li class="cart-card divider">
@@ -29,8 +42,18 @@ function cartItemTemplate(item) {
 
 renderCartContents();
 
+
 // delete item from cart
-document.querySelector('.deleteBtn').addEventListener('click', function () {
+function deleteItem() {
+  const deleteBtn = document.querySelector('.deleteBtn');
+  if(deleteBtn) {
+    deleteBtn.addEventListener('click', deleteFunctionality);
+  }
+}
+
+deleteItem()
+
+function deleteFunctionality() {
   let dataID = this.getAttribute('data-id');
   const cartItems = getLocalStorage('so-cart');
   console.log(cartItems);
@@ -43,4 +66,4 @@ document.querySelector('.deleteBtn').addEventListener('click', function () {
     renderCartContents();
     return;
   }
-});
+}
