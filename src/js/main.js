@@ -1,8 +1,8 @@
-import renderLengthCart from './cart';
+/* import renderLengthCart from './cart'; */
 import productList from './productList.mjs';
-import { loadHeaderFooter } from './utils.mjs'
+import { loadHeaderFooter } from './utils.mjs';
 
-renderLengthCart('.length-cart');
+/* renderLengthCart('.length-cart'); */
 productList('.product-list', 'tents');
 loadHeaderFooter();
 /* 
