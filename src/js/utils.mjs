@@ -83,10 +83,9 @@ function loadTemplate(path) {
   };
 }
 
-export default function loadHeaderFooter() {
+export async function loadHeaderFooter() {
   const headerTemplateFn = loadTemplate("../public/partials/header.html");
   const footerTemplateFn = loadTemplate("../public/partials/footer.html");
-  console.log(headerTemplateFn)
   const header = document.querySelector("#main-header");
   const footer = document.querySelector("#main-footer");
   renderListWithTemplate(headerTemplateFn, header);
