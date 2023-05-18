@@ -1,7 +1,6 @@
 import renderLengthCart  from './cart';
 import productList from './productList.mjs';
 
-
 renderLengthCart('.length-cart');
 productList('.product-list', 'tents');
 /* 

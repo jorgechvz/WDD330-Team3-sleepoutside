@@ -32,6 +32,7 @@ const renderProductDetails = () => {
   const productWithBrand = document.querySelector('#productNameWithoutBrand');
   const productImage = document.querySelector('#productImage');
   const productPrice = document.querySelector('.product-card__price');
+  const productDiscount = document.querySelector('.product-card__discount');
   const productColor = document.querySelector('.product__color');
   const productDescription = document.querySelector('.product__description');
   const addToCart = document.querySelector('#addToCart');
@@ -39,8 +40,9 @@ const renderProductDetails = () => {
   productName.innerHTML = product.Name;
   productWithBrand.innerHTML = product.NameWithoutBrand;
   productImage.src = product.Image;
-  productPrice.innerHTML = product.FinalPrice;
-  productColor.innerHTML = product.Colors[0].ColorName;
+  productDiscount.innerHTML = `Discount: $${Math.round(product.SuggestedRetailPrice - product.FinalPrice)}`;
+  productPrice.innerHTML = `Final Price: $${product.FinalPrice}`;
+  productColor.innerHTML = `Color: ${product.Colors[0].ColorName}`;
   productDescription.innerHTML = product.DescriptionHtmlSimple;
   addToCart.dataset.id = product.Id;
 };
