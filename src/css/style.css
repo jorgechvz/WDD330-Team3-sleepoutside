@@ -109,17 +109,16 @@ button {
 .cart:hover svg {
   fill: gray;
 }
-.cart .length-cart{
+.cart .length-cart {
   background-color: var(--primary-color);
   color: var(--dark-grey);
   border-radius: 50%;
-  font-size: .9em;
+  font-size: 0.9em;
   top: 13%;
   right: -5px;
-  padding: .1em .3em;
+  padding: 0.1em 0.3em;
   position: absolute;
 }
-
 
 /* End cart icon styles */
 
@@ -215,6 +214,10 @@ button {
 .deleteBtn {
   grid-column: 4;
   grid-row: 1;
+}
+
+.addBtn {
+  display: none;
 }
 
 @media screen and (min-width: 500px) {
