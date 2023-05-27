@@ -43,7 +43,7 @@ const renderProductDetails = () => {
 
   productName.innerHTML = product.Name;
   productWithBrand.innerHTML = product.NameWithoutBrand;
-  productImage.src = product.Image;
+  productImage.src = product.Images.PrimaryLarge;
   productDiscount.innerHTML = `Discount: $${Math.round(product.SuggestedRetailPrice - product.FinalPrice)}`;
   productPrice.innerHTML = `Final Price: $${product.FinalPrice}`;
   productColor.innerHTML = `Color: ${product.Colors[0].ColorName}`;
