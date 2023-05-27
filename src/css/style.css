@@ -220,6 +220,21 @@ button {
   display: none;
 }
 
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.categories div p {
+  text-align: center;
+}
+
+.categories div img {
+  min-width: 200px;
+}
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;

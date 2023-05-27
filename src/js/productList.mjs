@@ -2,20 +2,20 @@ import { getData } from './productData.mjs';
 import { renderListWithTemplate } from './utils.mjs';
 
 export default function productList(selector, category) {
-    const container = document.querySelector(selector);
-    getData(category)
-        .then((products) => {
-            console.log(products);
-            const filter = products.filter(filterProducts)
-            renderListWithTemplate(productCardTemplate, container, filter);
-        })
-        .catch((error) => console.error(error));
+  const container = document.querySelector(selector);
+  getData(category)
+    .then((products) => {
+      console.log(products);
+      const filter = products.filter(filterProducts)
+      renderListWithTemplate(productCardTemplate, container, filter);
+    })
+    .catch((error) => console.error(error));
 }
 
 function productCardTemplate(product) {
-    return `
+  return `
     <li class="product-card">
-    <a href="product_pages/index.html?product=${product.Id}">
+    <a href="/product_pages/index.html?product=${product.Id}">
       <img
         src="${product.Image}"
         alt="Image of ${product.Name}"
@@ -29,5 +29,5 @@ function productCardTemplate(product) {
 }
 
 function filterProducts(product) {
-    return product.FinalPrice != 179.99
+  return product.FinalPrice != 179.99
 }

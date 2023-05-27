@@ -1,3 +1,4 @@
+const baseURL = import.meta.env.VITE_SERVER_URL
 function convertToJson(res) {
   if (res.ok) {
     return res.json();
@@ -5,19 +6,17 @@ function convertToJson(res) {
     throw new Error('Bad Response');
   }
 }
-
-export function getData(category="tents") {
-  return fetch(`../json/${category}.json`)
+export function getData(category) {
+  return fetch(`${baseURL}products/search/${category}`)
     .then(convertToJson)
-    .then((data) => data);
+    .then((data) => data.Result);
+  console.log(data.Result);
 }
 
 export async function findProductById(id) {
-  try {
-    const products = await getData(); // I think the mistake is here by repeating the procces
-    return products.find((item) => item.Id === id);
-  } catch (err) {
-    console.error(err);
-    return { error: err.message };
-  }
+
+  return fetch(`${baseURL}products/${id}`)
+    .then(convertToJson)
+    .then((data) => data.Result);
+
 }
