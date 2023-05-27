@@ -14,9 +14,8 @@ export function getData(category) {
 }
 
 export async function findProductById(id) {
-
-  return fetch(`${baseURL}products/${id}`)
+  return fetch(`${baseURL}product/${id}`)
     .then(convertToJson)
     .then((data) => data.Result);
-
+    console.log(data.Result);
 }
