@@ -6,10 +6,10 @@ function packageItems(items) {
   // convert the list of products from localStorage to the simpler form required for the checkout process. Array.map would be perfect for this.
   const listPackageItems = items.map((element) => {
     return {
-        id: element.id,
-        name: element.name,
-        price: element.FinalPrice,
-        quantity: 1
+      id: element.id,
+      name: element.name,
+      price: element.FinalPrice,
+      quantity: 1
     }
   })
   return listPackageItems;
@@ -32,25 +32,29 @@ const checkoutProcess = {
   shipping: 0,
   tax: 0,
   orderTotal: 0,
-  init: (key, selector) => {
+  init: function (key, selector) {
     this.key = key;
     this.selector = selector;
-    list = getLocalStorage(key);
+    this.list = getLocalStorage(key);
+    this.calculateSummary();
+    this.calculateOrderTotal();
     this.displayOrderSummary();
   },
-  calculateSummary: () => {
+  calculateSummary: function () {
     this.list.map((items) => {
-      itemTotal += items.FinalPrice;
+      this.itemTotal += items.FinalPrice;
     });
-    tax = (this.itemTotal * 0.6).toFixed(2);
-    shipping = this.list.length * 2 + 10 - 2;
+    this.tax = (this.itemTotal * 0.06).toFixed(2);
+    this.shipping = (this.list.length * 2 + 10 - 2).toFixed(2);
   },
-  calculateOrderTotal: () => {
-    orderTotal = (this.itemTotal + this.tax + this.shipping).toFixed(2);
+  calculateOrderTotal: function () {
+    this.orderTotal = (parseFloat(this.itemTotal) + parseFloat(this.tax) + parseFloat(this.shipping)).toFixed(2);
     this.displayOrderSummary();
   },
-  displayOrderSummary: () => {
-    selector.innerHtml = `
+  displayOrderSummary: function () {
+    const element = document.querySelector(this.selector);
+    if (element) {
+      element.innerHTML = `
         <div class="camp-order-summary">
             <p>Item Subtotal(${this.list.length})</p>
             <p>$${this.itemTotal}</p>
@@ -68,6 +72,7 @@ const checkoutProcess = {
             <p>$${this.orderTotal}</p>
         </div>
     `;
+    }
   },
   checkout: async (form) => {
     // build the data object from the calculated fields, the items in the cart, and the information entered into the form
