@@ -1,9 +1,9 @@
-import { getData } from './productData.mjs';
+import { getProductsByCategory } from './externalServices.mjs';
 import { renderListWithTemplate } from './utils.mjs';
 
 export default function productList(selector, category) {
   const container = document.querySelector(selector);
-  getData(category)
+  getProductsByCategory(category)
     .then((products) => {
       console.log(products);
       const filter = products.filter(filterProducts)
