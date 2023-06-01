@@ -2,8 +2,10 @@ import { getLocalStorage, renderListWithTemplate } from './utils.mjs';
 
 export default function shoppingCart() {
   const cartItems = getLocalStorage('so-cart');
+  console.log(cartItems);
   const selectorCart = document.querySelector('.product-list');
   renderListWithTemplate(cartItemTemplate, selectorCart, cartItems);
+  renderTotalCart(cartItems);
 }
 
 function cartItemTemplate(item) {
@@ -23,6 +25,17 @@ function cartItemTemplate(item) {
   <button class="deleteBtn" data-id="${item.Id}"><span>x</span></button>
 </li>`;
   return newItem;
+}
+
+function renderTotalCart(itemPrices){
+  let totalPrice = 0;
+  itemPrices.forEach((item) => {
+    totalPrice +=  item.FinalPrice;
+  })
+  const getTotalPrice = document.querySelector('.cart-total');
+  const hideDisplay = document.querySelector('.hide');
+  hideDisplay.style.display = 'block';
+  return getTotalPrice.innerHTML = `Total: $ ${totalPrice}`  
 }
 
 /* function getLenghtCart() {

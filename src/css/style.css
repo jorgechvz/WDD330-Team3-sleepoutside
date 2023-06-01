@@ -215,7 +215,9 @@ button {
   grid-column: 4;
   grid-row: 1;
 }
-
+.hide{
+  display: none;
+}
 .addBtn {
   display: none;
 }

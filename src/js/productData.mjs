@@ -10,12 +10,10 @@ export function getData(category) {
   return fetch(`${baseURL}products/search/${category}`)
     .then(convertToJson)
     .then((data) => data.Result);
-  console.log(data.Result);
 }
 
 export async function findProductById(id) {
   return fetch(`${baseURL}product/${id}`)
     .then(convertToJson)
     .then((data) => data.Result);
-    console.log(data.Result);
 }
