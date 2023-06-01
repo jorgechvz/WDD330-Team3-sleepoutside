@@ -4,7 +4,7 @@ import checkoutProcess from "./checkoutProcess.mjs";
 loadHeaderFooter();
 
 
-checkoutProcess.init("so-cart",".orden-summary");
+checkoutProcess.init("so-cart", ".order-summary");
 
 document
   .querySelector("#zip")
