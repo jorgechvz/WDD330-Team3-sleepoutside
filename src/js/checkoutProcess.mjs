@@ -95,4 +95,3 @@ const checkoutProcess = {
 };
 
 export default checkoutProcess;
-
