@@ -6,8 +6,8 @@ function packageItems(items) {
   // convert the list of products from localStorage to the simpler form required for the checkout process. Array.map would be perfect for this.
   const listPackageItems = items.map((element) => {
     return {
-      id: element.id,
-      name: element.name,
+      id: element.Id,
+      name: element.Name,
       price: element.FinalPrice,
       quantity: 1
     }
@@ -74,7 +74,7 @@ const checkoutProcess = {
     `;
     }
   },
-  checkout: async (form) => {
+  checkout: async function (form){
     // build the data object from the calculated fields, the items in the cart, and the information entered into the form
     // call the checkout method in our externalServices module and send it our data object.
     const json = formDataToJSON(form);
