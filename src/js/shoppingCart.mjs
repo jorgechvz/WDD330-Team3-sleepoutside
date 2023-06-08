@@ -37,7 +37,7 @@ function renderTotalCart(itemPrices) {
   if (itemPrices.length != 0) {
     hideDisplay.style.display = 'block';
   }
-  return getTotalPrice.innerHTML = `Total: $ ${totalPrice}`
+  return getTotalPrice.innerHTML = `Total: $ ${totalPrice.toFixed(2)}`
 }
 
 function deleteProduct(event) {

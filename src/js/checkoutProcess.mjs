@@ -1,4 +1,7 @@
-import { getLocalStorage } from './utils.mjs';
+import {
+  getLocalStorage, alertMessage,
+  removeAllAlerts,
+} from './utils.mjs';
 import { checkout } from "./externalServices.mjs";
 
 // takes the items currently stored in the cart (localstorage) and returns them in a simplified form.
@@ -57,7 +60,7 @@ const checkoutProcess = {
       element.innerHTML = `
         <div class="camp-order-summary">
             <p>Item Subtotal(${this.list.length})</p>
-            <p>$${this.itemTotal}</p>
+            <p>$${this.itemTotal.toFixed(2)}</p>
         </div>
         <div class="camp-order-summary">
             <p>Shipping Estimate</p>
@@ -74,24 +77,37 @@ const checkoutProcess = {
     `;
     }
   },
-  checkout: async function (form){
-    // build the data object from the calculated fields, the items in the cart, and the information entered into the form
-    // call the checkout method in our externalServices module and send it our data object.
-    const json = formDataToJSON(form);
-    // add totals, and item details
-    json.orderDate = new Date();
-    json.orderTotal = this.orderTotal;
-    json.tax = this.tax;
-    json.shipping = this.shipping;
-    json.items = packageItems(this.list);
-    console.log(json);
+  checkout: async function (form) {
     try {
-      const res = await checkout(json);
-      console.log(res);
-    } catch (err) {
-      console.log(err);
+      // build the data object from the calculated fields, the items in the cart, and the information entered into the form
+      // call the checkout method in our externalServices module and send it our data object.
+      const json = formDataToJSON(form);
+      // add totals, and item details
+      json.orderDate = new Date();
+      json.orderTotal = this.orderTotal;
+      json.tax = this.tax;
+      json.shipping = this.shipping;
+      json.items = packageItems(this.list);
+      console.log(json);
+      try {
+        const res = await checkout(json);
+        console.log(res);
+      } catch (err) {
+        console.log(err);
+      }
+    } catch (error) {
+      // get rid of any preexisting alerts.
+      removeAllAlerts();
+      for (let message in err.message) {
+        alertMessage(err.message[message]);
+      }
+      console.log(error)
     }
   },
+  success: function () {
+    window.location.href = 'success.html'
+    localStorage.clear()
+  }
 };
 
 export default checkoutProcess;
