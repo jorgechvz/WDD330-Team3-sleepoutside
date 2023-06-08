@@ -91,16 +91,16 @@ const checkoutProcess = {
       console.log(json);
       try {
         const res = await checkout(json);
-        console.log(res);
+        this.success();
       } catch (err) {
+        // get rid of any preexisting alerts.
+        removeAllAlerts();
+        for (let message in err.message) {
+          alertMessage(err.message[message]);
+         }
         console.log(err);
       }
     } catch (error) {
-      // get rid of any preexisting alerts.
-      removeAllAlerts();
-      for (let message in err.message) {
-        alertMessage(err.message[message]);
-      }
       console.log(error)
     }
   },

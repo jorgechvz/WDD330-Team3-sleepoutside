@@ -17,7 +17,6 @@ document.querySelector('.checkout-orden')
     myForm.reportValidity();
     if (chk_status) {
       checkoutProcess.checkout();
-      checkoutProcess.success();
     }
   });
 
