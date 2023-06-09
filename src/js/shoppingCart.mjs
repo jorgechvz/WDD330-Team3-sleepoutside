@@ -3,16 +3,21 @@ import { getLocalStorage, renderListWithTemplate } from './utils.mjs';
 export default function shoppingCart() {
   const cartItems = getLocalStorage('so-cart');
   const selectorCart = document.querySelector('.product-list');
-  renderListWithTemplate(cartItemTemplate, selectorCart, cartItems);
-  renderTotalCart(cartItems);
-  selectorCart.addEventListener('click', deleteProduct);
+  if (cartItems.length == 0) {
+    displayCheckout(cartItems);
+  } else {
+    displayCheckout(cartItems);
+    renderListWithTemplate(cartItemTemplate, selectorCart, cartItems);
+    renderTotalCart(cartItems);
+    selectorCart.addEventListener('click', deleteProduct);
+  }
 }
 
 function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
     <img
-      src="${item.Images.PrimaryMedium}"
+      src="${item.Images.PrimarySmall}"
       alt="${item.Name}"
     />
   </a>
@@ -20,9 +25,11 @@ function cartItemTemplate(item) {
     <h2 class="card__name">${item.Name}</h2>
   </a>
   <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">qty: 1</p>
-  <p class="cart-card__price">$${item.FinalPrice}</p>
-  <button class="deleteBtn" data-id="${item.Id}"><span class="xBtn">x</span></button>
+  <p class="cart-card__quantity">qty: ${item.Quantity}</p>
+  <p class="cart-card__price">$${(item.FinalPrice * item.Quantity).toFixed(2)}</p>
+  <button class="deleteBtn" data-id="${
+    item.Id
+  }"><span class="xBtn"><img src="../../images/trash.svg" alt="Icon Trash"/></span></button>
 </li>`;
   return newItem;
 }
@@ -30,14 +37,18 @@ function cartItemTemplate(item) {
 function renderTotalCart(itemPrices) {
   let totalPrice = 0;
   itemPrices.forEach((item) => {
-    totalPrice += item.FinalPrice;
-  })
+    totalPrice += item.FinalPrice * item.Quantity;
+  });
   const getTotalPrice = document.querySelector('.cart-total');
   const hideDisplay = document.querySelector('.hide');
   if (itemPrices.length != 0) {
-    hideDisplay.style.display = 'block';
+    hideDisplay.style.display = 'flex';
+    displayCheckout(itemPrices);
+  } else {
+    displayCheckout(itemPrices);
+    hideDisplay.style.display = 'none';
   }
-  return getTotalPrice.innerHTML = `Total: $ ${totalPrice.toFixed(2)}`
+  return (getTotalPrice.innerHTML = `Total: $ ${totalPrice.toFixed(2)}`);
 }
 
 function deleteProduct(event) {
@@ -53,7 +64,7 @@ function deleteProduct(event) {
     let cartItems = getLocalStorage('so-cart');
 
     // Find the index of the product with the matching id
-    const index = cartItems.findIndex(item => item.Id === productId);
+    const index = cartItems.findIndex((item) => item.Id === productId);
 
     // Check if the product was found in the cart
     if (index !== -1) {
@@ -73,10 +84,24 @@ function deleteProduct(event) {
   }
 }
 
+function messageEmpty() {
+  const selectorCart = document.querySelector('.products');
+  let messageCartEmpty = document.createElement('div');
+  messageCartEmpty.className = 'message_empty';
+  messageCartEmpty.innerHTML = `
+    <h3>You Cart is Empty</h3>
+    <p>Please add products!!</p>
+    <img class="empty_cart" src="../../images/carro.png" alt="Shopping cart Empty Image">
+  `;
+  selectorCart.appendChild(messageCartEmpty);
+}
 
-
-
-
-
-
-
+function displayCheckout(items) {
+  const checkoutShow = document.querySelector('.checkout button');
+  if (items != 0) {
+    checkoutShow.style.display = 'block';
+  } else {
+    checkoutShow.style.display = 'none';
+    messageEmpty();
+  }
+}

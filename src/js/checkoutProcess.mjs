@@ -12,7 +12,7 @@ function packageItems(items) {
       id: element.Id,
       name: element.Name,
       price: element.FinalPrice,
-      quantity: 1
+      quantity: element.Quantity
     }
   })
   return listPackageItems;
@@ -39,13 +39,14 @@ const checkoutProcess = {
     this.key = key;
     this.selector = selector;
     this.list = getLocalStorage(key);
+    console.log(this.list);
     this.calculateSummary();
     this.calculateOrderTotal();
     this.displayOrderSummary();
   },
   calculateSummary: function () {
     this.list.map((items) => {
-      this.itemTotal += items.FinalPrice;
+      this.itemTotal += (items.FinalPrice * items.Quantity);
     });
     this.tax = (this.itemTotal * 0.06).toFixed(2);
     this.shipping = (this.list.length * 2 + 10 - 2).toFixed(2);
