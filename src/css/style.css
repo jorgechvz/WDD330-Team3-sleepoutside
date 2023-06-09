@@ -191,13 +191,33 @@ button {
 .product-card p {
   margin: 0.5em 0;
 }
-
 .card__brand {
   font-size: var(--small-font);
 }
-
+.product__image{
+  display: grid;
+  margin: 0 auto;
+}
 .card__name {
   font-size: 1em;
+}
+
+.product-header-info{
+  display: flex;
+  justify-content: start;
+}
+.product-card__suggest{
+  text-decoration: line-through;
+  font-size: .8em;
+}
+.product-header-info .discount-indicator span{
+  margin-left: .5em;
+  background-color: var(--primary-color);
+  padding: .2em .3em;
+  font-size: .8em;
+  font-weight: bold;
+  color: #000;
+  border-radius: 5px;
 }
 /* End product list card */
 
