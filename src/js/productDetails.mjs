@@ -16,20 +16,36 @@ export default async function productsDetails(productId) {
   }
 }
 
-function addProductToCart(product1) {
+function addProductToCart(product) {
   // Retrieve the current cart items from local storage
   const cartItems = getLocalStorage('so-cart');
+  // Check if the product id exists in the cart
+  const existingProduct = cartItems.find((item) => item.Id === product.Id);
   // Check if there are any cart items
   if (cartItems.length) {
-    // If there are already cart items, add the new product to the existing list
-    cartItems.push(product1);
-    // Save the updated cart items to local storage
-    setLocalStorage('so-cart', cartItems);
+    if (existingProduct) {
+      // If the product already exists in the cart, increment its quantity
+      existingProduct.Quantity = (existingProduct.Quantity || 1) + 1;
+    } else {
+      // If there are already cart items, add the new product to the existing list
+      product.Quantity = 1;
+      cartItems.push(product);
+    }
   } else {
     // If there are no existing cart items, create a new array with the product and save it to local storage
-    setLocalStorage('so-cart', [product1]);
+    product.Quantity = 1;
+    cartItems.push(product);
   }
+  // Add the animation cart
+  const cartIcon = document.querySelector('.cart');
+  cartIcon.classList.add('cart-icon-animation');
+  setTimeout(() => {
+    cartIcon.classList.remove('cart-icon-animation');
+  }, 1000);
+  // Save the updated cart items to local storage
+  setLocalStorage('so-cart', cartItems);
 }
+
 
 const renderProductDetails = () => {
   const productName = document.querySelector('#productName');

@@ -88,7 +88,6 @@ export async function loadHeaderFooter() {
   const footerTemplateFn = loadTemplate("/partials/footer.html");
   const header = document.querySelector("#main-header");
   const footer = document.querySelector("#main-footer");
-  console.log(headerTemplateFn)
   renderWithTemplate(headerTemplateFn, header);
   renderWithTemplate(footerTemplateFn, footer);
 }
@@ -114,9 +113,9 @@ export function alertMessage(message, scroll = true, duration = 3000) {
     window.scrollTo(0, 0);
 
   // left this here to show how you could remove the alert automatically after a certain amount of time.
-  setTimeout(function () {
+  /* setTimeout(function () {
     element.removeChild(alert);
-  }, duration);
+  }, duration); */
 }
 
 export function removeAllAlerts() {
