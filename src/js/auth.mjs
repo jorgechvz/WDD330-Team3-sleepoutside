@@ -8,6 +8,7 @@ const tokenKey = "so-token";
 export async function login(creds, redirect = "/"){
     try {
         const token = await loginRequest(creds);
+        console.log(token);
         setLocalStorage(tokenKey, token);
         window.location = redirect;
     } catch (err) {
@@ -15,7 +16,7 @@ export async function login(creds, redirect = "/"){
     }
 }
 
-function isTokenValid(token){
+export function isTokenValid(token){
     if (token) {
         const decode_token = jwt_decode(token);
         const current_date = new Date();
