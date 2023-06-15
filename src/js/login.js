@@ -1,5 +1,5 @@
-import { login } from './auth.mjs';
-import { getParam, loadHeaderFooter } from './utils.mjs';
+import { isTokenValid, login } from './auth.mjs';
+import { getLocalStorage, getParam, loadHeaderFooter } from './utils.mjs';
 
 loadHeaderFooter();
 
