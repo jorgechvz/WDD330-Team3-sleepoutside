@@ -10,6 +10,7 @@ export default function shoppingCart() {
     renderListWithTemplate(cartItemTemplate, selectorCart, cartItems);
     renderTotalCart(cartItems);
     selectorCart.addEventListener('click', deleteProduct);
+    selectorCart.addEventListener('change', updateQuantity);
   }
 }
 
@@ -25,7 +26,7 @@ function cartItemTemplate(item) {
     <h2 class="card__name">${item.Name}</h2>
   </a>
   <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">qty: ${item.Quantity}</p>
+  <p class="cart-card__quantity">qty: <input type="number" min="1" value="${item.Quantity}" class="quantity-input" data-id="${item.Id}"/></p>
   <p class="cart-card__price">$${(item.FinalPrice * item.Quantity).toFixed(2)}</p>
   <button class="deleteBtn" data-id="${
     item.Id
@@ -81,6 +82,23 @@ function deleteProduct(event) {
       // Update the total cart price
       renderTotalCart(cartItems);
     }
+  }
+}
+
+function updateQuantity(event) {
+  const quantityInput = event.target;
+  const productId = quantityInput.dataset.id;
+  const newQuantity = parseInt(quantityInput.value);
+
+  let cartItems = getLocalStorage('so-cart');
+  const index = cartItems.findIndex((item) => item.Id === productId);
+
+  if (index !== -1) {
+    cartItems[index].Quantity = newQuantity;
+    localStorage.setItem('so-cart', JSON.stringify(cartItems));
+    const selectorCart = document.querySelector('.product-list');
+    renderListWithTemplate(cartItemTemplate, selectorCart, cartItems);
+    renderTotalCart(cartItems);
   }
 }
 
