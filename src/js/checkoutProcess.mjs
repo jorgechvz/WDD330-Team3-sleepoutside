@@ -98,7 +98,7 @@ const checkoutProcess = {
         removeAllAlerts();
         for (let message in err.message) {
           alertMessage(err.message[message]);
-         }
+        }
         console.log(err);
       }
     } catch (error) {
