@@ -1,4 +1,4 @@
-import { isTokenValid, login } from './auth.mjs';
+import { login } from './auth.mjs';
 import { getLocalStorage, getParam, loadHeaderFooter } from './utils.mjs';
 
 loadHeaderFooter();
