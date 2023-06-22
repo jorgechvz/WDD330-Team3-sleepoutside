@@ -1,6 +1,6 @@
 import { login } from './auth.mjs';
-import { getLocalStorage, getParam, loadHeaderFooter } from './utils.mjs';
-
+import { getLocalStorage, getParam, loadHeaderFooter, updateCartItemCount } from './utils.mjs';
+updateCartItemCount();
 loadHeaderFooter();
 
 const redirect = getParam('redirect');

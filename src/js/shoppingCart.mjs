@@ -1,4 +1,4 @@
-import { getLocalStorage, renderListWithTemplate } from './utils.mjs';
+import { getLocalStorage, renderListWithTemplate, setLocalStorage } from './utils.mjs';
 
 export default function shoppingCart() {
   const cartItems = getLocalStorage('so-cart');
@@ -26,7 +26,9 @@ function cartItemTemplate(item) {
     <h2 class="card__name">${item.Name}</h2>
   </a>
   <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">qty: <input type="number" min="1" value="${item.Quantity}" class="quantity-input" data-id="${item.Id}"/></p>
+  <p class="cart-card__quantity">qty: <input type="number" min="1" value="${
+    item.Quantity
+  }" class="quantity-input" data-id="${item.Id}"/></p>
   <p class="cart-card__price">$${(item.FinalPrice * item.Quantity).toFixed(2)}</p>
   <button class="deleteBtn" data-id="${
     item.Id
@@ -73,12 +75,12 @@ function deleteProduct(event) {
       cartItems.splice(index, 1);
 
       // Save the updated cartItems back to local storage
-      localStorage.setItem('so-cart', JSON.stringify(cartItems));
+      setLocalStorage('so-cart', cartItems);
 
       // Re-render the cart list with the updated cartItems
       const selectorCart = document.querySelector('.product-list');
       renderListWithTemplate(cartItemTemplate, selectorCart, cartItems);
-
+      
       // Update the total cart price
       renderTotalCart(cartItems);
     }
@@ -95,7 +97,7 @@ function updateQuantity(event) {
 
   if (index !== -1) {
     cartItems[index].Quantity = newQuantity;
-    localStorage.setItem('so-cart', JSON.stringify(cartItems));
+    setLocalStorage('so-cart', cartItems);
     const selectorCart = document.querySelector('.product-list');
     renderListWithTemplate(cartItemTemplate, selectorCart, cartItems);
     renderTotalCart(cartItems);
