@@ -84,10 +84,10 @@ function loadTemplate(path) {
 }
 
 export async function loadHeaderFooter() {
-  const headerTemplateFn = loadTemplate("/partials/header.html");
-  const footerTemplateFn = loadTemplate("/partials/footer.html");
-  const header = document.querySelector("#main-header");
-  const footer = document.querySelector("#main-footer");
+  const headerTemplateFn = loadTemplate('/partials/header.html');
+  const footerTemplateFn = loadTemplate('/partials/footer.html');
+  const header = document.querySelector('#main-header');
+  const footer = document.querySelector('#main-footer');
   renderWithTemplate(headerTemplateFn, header);
   renderWithTemplate(footerTemplateFn, footer);
 }
@@ -95,22 +95,22 @@ export async function loadHeaderFooter() {
 export function alertMessage(message, scroll = true, duration = 3000) {
   const alert = document.createElement('div');
   // add a class to style the alert
-  alert.classList.add('alert')
+  alert.classList.add('alert');
   // set the contents. You should have a message and an X or something the user can click on to remove
   alert.innerHTML = `<p>${message}</p><span>X</span>`;
   // add a listener to the alert to see if they clicked on the X
   // if they did then remove the child
   alert.addEventListener('click', function (e) {
-    if (e.target.tagName == "SPAN") { // how can we tell if they clicked on our X or on something else?  hint: check out e.target.tagName or e.target.innerText
+    if (e.target.tagName == 'SPAN') {
+      // how can we tell if they clicked on our X or on something else?  hint: check out e.target.tagName or e.target.innerText
       element.removeChild(this);
     }
-  })
-  const element = document.querySelector('.products')
-  element.prepend(alert)
+  });
+  const element = document.querySelector('.products');
+  element.prepend(alert);
   // make sure they see the alert by scrolling to the top of the window
   //we may not always want to do this...so default to scroll=true, but allow it to be passed in and overridden.
-  if (scroll)
-    window.scrollTo(0, 0);
+  if (scroll) window.scrollTo(0, 0);
 
   // left this here to show how you could remove the alert automatically after a certain amount of time.
   /* setTimeout(function () {
@@ -119,6 +119,20 @@ export function alertMessage(message, scroll = true, duration = 3000) {
 }
 
 export function removeAllAlerts() {
-  const alerts = document.querySelectorAll(".alert");
-  alerts.forEach((alert) => document.querySelector(".products").removeChild(alert));
+  const alerts = document.querySelectorAll('.alert');
+  alerts.forEach((alert) => document.querySelector('.products').removeChild(alert));
+}
+
+export function updateCartItemCount() {
+  const observer = new MutationObserver(() => {
+    const getItems = getLocalStorage('so-cart');
+    const countElement = document.querySelector('.cart .length-cart');
+    if (countElement) {
+      const getQuantities = getItems.map((item) => item.Quantity);
+      const totalQuantity = getQuantities.reduce((totalItem, item) => totalItem + item, 0);
+      countElement.innerHTML = totalQuantity;
+      observer.disconnect();
+    }
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
 }
