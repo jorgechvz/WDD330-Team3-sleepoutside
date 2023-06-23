@@ -194,7 +194,7 @@ button {
 .card__brand {
   font-size: var(--small-font);
 }
-.product__image{
+.product__image {
   display: grid;
   margin: 0 auto;
 }
@@ -202,19 +202,19 @@ button {
   font-size: 1em;
 }
 
-.product-header-info{
+.product-header-info {
   display: flex;
   justify-content: start;
 }
-.product-card__suggest{
+.product-card__suggest {
   text-decoration: line-through;
-  font-size: .8em;
+  font-size: 0.8em;
 }
-.product-header-info .discount-indicator span{
-  margin-left: .5em;
+.product-header-info .discount-indicator span {
+  margin-left: 0.5em;
   background-color: var(--primary-color);
-  padding: .2em .3em;
-  font-size: .8em;
+  padding: 0.2em 0.3em;
+  font-size: 0.8em;
   font-weight: bold;
   color: #000;
   border-radius: 5px;
@@ -314,12 +314,12 @@ button {
 
 /* Alerts style */
 
-.alert{
+.alert {
   background-color: var(--secondary-color);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 0 1em .5em;
+  margin: 0 1em 0.5em;
   padding: 0 1em;
   color: #ffff;
 }
@@ -336,6 +336,80 @@ button {
 }
 
 /* End Checkout styles */
+
+/* Modal Styles  */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 50px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+.modal-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.close-modal{
+  margin: 0;
+  font-size: 2.5em;
+  cursor: pointer;
+}
+/* Modal Content */
+.modal-content{
+  border-radius: 25px;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  width: 80%;
+}
+.modal-content hr{
+  width: 95%;
+}
+.modal-header,
+.modal-section{
+  padding: 1em 2em;
+}
+.modal-section{
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+}
+.modal-section img {
+  margin: auto;
+}
+.modal-product {
+  padding: 0;
+}
+.modal-product li{
+  list-style: none;
+}
+.color-product-modal{
+  margin: 4em 0 1em;
+}
+.description-product-modal{
+  font-size: .85em;
+}
+.title-product-modal{
+  font-size: 1.5em;
+}
+.modal-price{
+  margin-top: .5em;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+.modal-addToCart{
+  margin-top: 1em;
+}
+.modal-addToCart #addToCart{
+  margin: 0;
+}
+/* End Modal Styles */
 
 @media screen and (min-width: 500px) {
   body {

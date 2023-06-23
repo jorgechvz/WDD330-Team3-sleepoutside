@@ -124,15 +124,14 @@ export function removeAllAlerts() {
 }
 
 export function updateCartItemCount() {
-  const observer = new MutationObserver(() => {
+  const countElement = document.querySelector('.cart .length-cart');
+  if (countElement) {
     const getItems = getLocalStorage('so-cart');
-    const countElement = document.querySelector('.cart .length-cart');
-    if (countElement) {
-      const getQuantities = getItems.map((item) => item.Quantity);
-      const totalQuantity = getQuantities.reduce((totalItem, item) => totalItem + item, 0);
-      countElement.innerHTML = totalQuantity;
-      observer.disconnect();
-    }
-  });
-  observer.observe(document.body, { childList: true, subtree: true });
+    const getQuantities = getItems.map((item) => item.Quantity);
+    const totalQuantity = getQuantities.reduce((totalItem, item) => totalItem + item, 0);
+    countElement.innerHTML = totalQuantity;
+  } else {
+    setTimeout(updateCartItemCount, 1);
+  }
 }
+
