@@ -17,7 +17,7 @@ export default async function productsDetails(productId) {
   }
 }
 
-function addProductToCart(product) {
+export function addProductToCart(product) {
   // Retrieve the current cart items from local storage
   const cartItems = getLocalStorage('so-cart');
   // Check if the product id exists in the cart
@@ -45,6 +45,7 @@ function addProductToCart(product) {
   }, 1000);
   // Save the updated cart items to local storage
   setLocalStorage('so-cart', cartItems);
+  updateCartItemCount();
 }
 
 
@@ -61,6 +62,7 @@ const renderProductDetails = () => {
   productName.innerHTML = product.Name;
   productWithBrand.innerHTML = product.NameWithoutBrand;
   productImage.src = product.Images.PrimaryLarge;
+  productImage.alt = `Image of ${product.Name}`;
   productDiscount.innerHTML = `Discount: $${(product.SuggestedRetailPrice - product.FinalPrice).toFixed(2)}`;
   productPrice.innerHTML = `Final Price: $${product.FinalPrice}`;
   productColor.innerHTML = `Color: ${product.Colors[0].ColorName}`;

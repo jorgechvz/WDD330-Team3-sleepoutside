@@ -1,4 +1,4 @@
-import { getLocalStorage, renderListWithTemplate, setLocalStorage } from './utils.mjs';
+import { getLocalStorage, renderListWithTemplate, setLocalStorage, updateCartItemCount } from './utils.mjs';
 
 export default function shoppingCart() {
   const cartItems = getLocalStorage('so-cart');
@@ -83,6 +83,7 @@ function deleteProduct(event) {
       
       // Update the total cart price
       renderTotalCart(cartItems);
+      updateCartItemCount();
     }
   }
 }
@@ -101,6 +102,7 @@ function updateQuantity(event) {
     const selectorCart = document.querySelector('.product-list');
     renderListWithTemplate(cartItemTemplate, selectorCart, cartItems);
     renderTotalCart(cartItems);
+    updateCartItemCount();
   }
 }
 
