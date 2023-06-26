@@ -9,14 +9,7 @@ document
   .querySelector('#zip')
   .addEventListener('blur', checkoutProcess.calculateOrderTotal.bind(checkoutProcess));
 
-document.querySelector('.checkout-orden')
-  .addEventListener('click', (e) => {
-    e.preventDefault();
-    var myForm = document.forms[0];
-    var chk_status = myForm.checkValidity();
-    myForm.reportValidity();
-    if (chk_status) {
-      checkoutProcess.checkout();
-    }
-  });
-
+document.forms["checkout"].addEventListener("submit", (e) => {
+  e.preventDefault();
+  checkoutProcess.checkout(e.target);
+});

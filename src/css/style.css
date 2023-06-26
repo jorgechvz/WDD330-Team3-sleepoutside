@@ -80,6 +80,10 @@ header {
 .highlight {
   color: var(--tertiary-color);
 }
+.searchandicon-container{
+  display: flex;
+  gap: 2em;
+}
 
 button {
   padding: 0.5em 2em;
@@ -95,6 +99,28 @@ button {
   border-bottom: 2px solid var(--primary-color);
 }
 /* End utility classes */
+
+/* Search Box Styles */
+#search-form{
+  display: flex;
+  align-items: center;
+}
+
+#search-input{
+  height: 30px;
+}
+
+.search-button{
+  background-color: #fefefe;
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+.search-button img{
+  margin-left: .3em;
+  width: 25px;
+}
+/* Search Box end Styles */
 
 /* Cart icon styles */
 @keyframes cartAnimation {

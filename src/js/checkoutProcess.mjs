@@ -1,6 +1,6 @@
 import {
   getLocalStorage, alertMessage,
-  removeAllAlerts,
+  removeAllAlerts, setLocalStorage
 } from './utils.mjs';
 import { checkout } from "./externalServices.mjs";
 
@@ -79,7 +79,6 @@ const checkoutProcess = {
     }
   },
   checkout: async function (form) {
-    try {
       // build the data object from the calculated fields, the items in the cart, and the information entered into the form
       // call the checkout method in our externalServices module and send it our data object.
       const json = formDataToJSON(form);
@@ -92,6 +91,7 @@ const checkoutProcess = {
       console.log(json);
       try {
         const res = await checkout(json);
+        console.log(res);
         this.success();
       } catch (err) {
         // get rid of any preexisting alerts.
@@ -101,13 +101,10 @@ const checkoutProcess = {
         }
         console.log(err);
       }
-    } catch (error) {
-      console.log(error)
-    }
   },
   success: function () {
+    setLocalStorage("so-cart", []);
     window.location.href = 'success.html'
-    localStorage.clear()
   }
 };
 
