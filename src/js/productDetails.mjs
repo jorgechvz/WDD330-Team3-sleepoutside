@@ -70,7 +70,7 @@ const renderProductDetails = () => {
   addToCart.dataset.id = product.Id;
 };
 
-function errOutcome() {
+export function errOutcome() {
   document.querySelector('#addToCart').classList.toggle('addBtn');
   const productName = document.querySelector('#productNameWithoutBrand');
   const errorMsg = document.createElement('p');
