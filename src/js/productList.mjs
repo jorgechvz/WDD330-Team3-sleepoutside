@@ -1,6 +1,7 @@
-import { getProductsByCategory } from './externalServices.mjs';
-import { addProductToCart } from './productDetails.mjs';
+import { findProductById, getProductsByCategory, searchProduct } from './externalServices.mjs';
+import { addProductToCart, errOutcome } from './productDetails.mjs';
 import { getParam, renderListWithTemplate } from './utils.mjs';
+import { checkLogin } from './auth.mjs';
 
 export default function productList(selector, category) {
   const container = document.querySelector(selector);
@@ -9,6 +10,16 @@ export default function productList(selector, category) {
       console.log(products);
       renderListWithTemplate(productCardTemplate, container, products);
       eventModal();
+    })
+    .catch((error) => console.error(error));
+}
+
+export function productListBySearch(selector) {
+  const token = checkLogin();
+  searchProduct(token)
+    .then((products) => {
+      console.log(products);
+      filterBySearchName(selector, products);
     })
     .catch((error) => console.error(error));
 }
@@ -37,13 +48,11 @@ function productCardTemplate(product) {
 }
 
 function getProductByIdForModal(idProduct) {
-  const category = getParam('category');
-  getProductsByCategory(category)
+  findProductById(idProduct)
     .then((products) => {
-      const foundProduct = products.find((item) => item.Id == idProduct);
-      renderModal(foundProduct);
+      renderModal(products);
       document.querySelector('#addToCart').addEventListener('click', () => {
-        addProductToCart(foundProduct);
+        addProductToCart(products);
       });
       eventModal();
     })
@@ -63,7 +72,7 @@ function eventModal() {
       getModal.style.display = 'block';
     });
   });
-  if(closeModal){
+  if (closeModal) {
     closeModal.addEventListener('click', () => {
       getModal.style.display = 'none';
     });
@@ -73,7 +82,6 @@ function eventModal() {
       getModal.style.display = 'none';
     }
   });
- 
 }
 
 function renderModal(product) {
@@ -103,4 +111,35 @@ function renderModal(product) {
 
 export function capitalizeWord(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function filterBySearchName(selector, products) {
+  const getSearchForm = document.querySelector('#search-form');
+  const container = document.querySelector(selector);
+  if (getSearchForm) {
+    getSearchForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const getSearchValue = document.querySelector('#search-input').value.trim();
+      if (getSearchValue) {
+        const filteredResults = products.filter((product) => {
+          const productName = product.Name;
+          return productName.includes(getSearchValue);
+        });
+        if (filteredResults.length == 0) {
+          renderEmptySearch();
+        } else {
+          renderListWithTemplate(productCardTemplate, container, filteredResults);
+          eventModal();
+        }
+      } else {
+        renderListWithTemplate(productCardTemplate, container, products);
+        eventModal();
+      }
+    });
+  }
+}
+
+function renderEmptySearch() {
+  const container = document.querySelector(".product-list");
+  container.innerHTML = `<h2> Product not found </h2>`;
 }
