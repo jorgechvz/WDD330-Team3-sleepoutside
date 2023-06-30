@@ -50,10 +50,13 @@ export function addProductToCart(product) {
 
 
 const renderProductDetails = () => {
+  const getDiscountPercent =
+    100 - ((product.FinalPrice * 100) / product.SuggestedRetailPrice).toFixed(0);
   const productName = document.querySelector('#productName');
   const productWithBrand = document.querySelector('#productNameWithoutBrand');
   const productImage = document.querySelector('#productImage');
   const productPrice = document.querySelector('.product-card__price');
+  const indicatorDiscount = document.querySelector('.discount-indicator span');
   const productDiscount = document.querySelector('.product-card__discount');
   const productColor = document.querySelector('.product__color');
   const productDescription = document.querySelector('.product__description');
@@ -64,6 +67,7 @@ const renderProductDetails = () => {
   productImage.src = product.Images.PrimaryLarge;
   productImage.alt = `Image of ${product.Name}`;
   productDiscount.innerHTML = `Discount: $${(product.SuggestedRetailPrice - product.FinalPrice).toFixed(2)}`;
+  indicatorDiscount.innerHTML = `-${getDiscountPercent}%`;
   productPrice.innerHTML = `Final Price: $${product.FinalPrice}`;
   productColor.innerHTML = `Color: ${product.Colors[0].ColorName}`;
   productDescription.innerHTML = product.DescriptionHtmlSimple;

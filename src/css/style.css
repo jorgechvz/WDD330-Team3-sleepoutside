@@ -80,7 +80,7 @@ header {
 .highlight {
   color: var(--tertiary-color);
 }
-.searchandicon-container{
+.searchandicon-container {
   display: flex;
   gap: 2em;
 }
@@ -101,23 +101,23 @@ button {
 /* End utility classes */
 
 /* Search Box Styles */
-#search-form{
+#search-form {
   display: flex;
   align-items: center;
 }
 
-#search-input{
+#search-input {
   height: 30px;
 }
 
-.search-button{
+.search-button {
   background-color: #fefefe;
   display: flex;
   align-items: center;
   padding: 0;
 }
-.search-button img{
-  margin-left: .3em;
+.search-button img {
+  margin-left: 0.3em;
   width: 25px;
 }
 /* Search Box end Styles */
@@ -257,6 +257,37 @@ button {
   width: 100%;
 }
 
+.discount-position {
+  position: relative;
+}
+
+.discount-container .discount-indicator span {
+  position: absolute;
+  margin-left: 0.5em;
+  background-color: var(--primary-color);
+  padding: 0.2em 0.3em;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #000;
+  border: 2px solid rgb(178, 1, 1);
+  border-radius: 5px;
+  top: 15rem;
+  right: 1rem;
+}
+
+.dis-indicator span {
+  position: absolute;
+  margin-left: 0.5em;
+  background-color: var(--primary-color);
+  padding: 0.2em 0.3em;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #000;
+  border: 2px solid rgb(178, 1, 1);
+  border-radius: 5px;
+  top: 35%;
+  right: 15%;
+}
 /* Start cart list card styles */
 .cart-card {
   display: grid;
@@ -377,34 +408,34 @@ button {
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
-.modal-header{
+.modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.close-modal{
+.close-modal {
   margin: 0;
   font-size: 2.5em;
   cursor: pointer;
 }
 /* Modal Content */
-.modal-content{
+.modal-content {
   border-radius: 25px;
   background-color: #fefefe;
   margin: auto;
   padding: 20px;
   width: 80%;
 }
-.modal-content hr{
+.modal-content hr {
   width: 95%;
 }
 .modal-header,
-.modal-section{
+.modal-section {
   padding: 1em 2em;
 }
-.modal-section{
+.modal-section {
   display: grid;
-  grid-template-columns: repeat(2,1fr);
+  grid-template-columns: repeat(2, 1fr);
 }
 .modal-section img {
   margin: auto;
@@ -412,27 +443,27 @@ button {
 .modal-product {
   padding: 0;
 }
-.modal-product li{
+.modal-product li {
   list-style: none;
 }
-.color-product-modal{
+.color-product-modal {
   margin: 4em 0 1em;
 }
-.description-product-modal{
-  font-size: .85em;
+.description-product-modal {
+  font-size: 0.85em;
 }
-.title-product-modal{
+.title-product-modal {
   font-size: 1.5em;
 }
-.modal-price{
-  margin-top: .5em;
+.modal-price {
+  margin-top: 0.5em;
   font-size: 1.5em;
   font-weight: bold;
 }
-.modal-addToCart{
+.modal-addToCart {
   margin-top: 1em;
 }
-.modal-addToCart #addToCart{
+.modal-addToCart #addToCart {
   margin: 0;
 }
 /* End Modal Styles */

@@ -45,14 +45,19 @@ export function renderListWithTemplate(
   templateFn,
   parentElement,
   list,
+  minPrice = 0,
   position = 'afterbegin',
   clear = true
 ) {
   if (clear) {
     parentElement.innerHTML = '';
   }
-  const htmlString = list.map(templateFn);
-  parentElement.insertAdjacentHTML(position, htmlString.join(''));
+
+  const filteredList = list.filter((product) => product.FinalPrice >= minPrice);
+  const htmlStrings = filteredList.map(templateFn);
+  htmlStrings.forEach((htmlString) => {
+    parentElement.insertAdjacentHTML(position, htmlString);
+  });
 }
 
 export async function renderWithTemplate(
