@@ -36,7 +36,7 @@ export function productListBySearch(selector) {
 function renderProductList(container) {
   const minPrice = parseInt(sliderInput.value, 10);
   const filteredProducts = products.filter((product) => product.FinalPrice >= minPrice);
-  filteredProducts.reverse(); // Reverse the order of the filtered products
+  filteredProducts; // Reverse the order of the filtered products
   renderListWithTemplate(productCardTemplate, container, filteredProducts, minPrice, 'afterbegin', true);
 }
 sliderInput.addEventListener('input', () => {
@@ -54,7 +54,30 @@ function productCardTemplate(product) {
   return `
     <li class="product-card">
       <a href="/product_pages/index.html?product=${product.Id}">
-        <img class="product__image" src="${product.Images.PrimaryMedium}" alt="Image of ${product.Name}" />
+      <picture>
+            <source
+              media="(max-width: 35rem)"
+              srcset="${product.Images.PrimarySmall}"
+            />
+            <source
+              media="(max-width: 64rem)"
+              srcset="${product.Images.PrimaryMedium}"
+            />
+            <source
+              media="(max-width: 130rem)"
+              srcset="${product.Images.PrimaryLarge}"
+            />
+            <source
+              media="(max-width: 182rem)"
+              srcset="${product.Images.PrimaryExtraLarge}"
+            />
+            <img
+              class="product__image"
+              src="${product.Images.ExtraImages && product.Images.ExtraImages[0].Src}"
+              alt="Image of ${product.Name}"
+              loading="lazy"
+            />
+          </picture>
         <h3 class="card__brand">${product.Brand.Name}</h3>
         <h2 class="card__name">${product.Name}</h2>
         <div class="product-header-info">
@@ -74,6 +97,9 @@ function getProductByIdForModal(idProduct) {
       renderModal(products);
       document.querySelector('#addToCart').addEventListener('click', () => {
         addProductToCart(products);
+      });
+      document.querySelector('#addToWish').addEventListener('click', () => {
+        addProductToCart(products, 1);
       });
       eventModal();
     })
@@ -123,6 +149,7 @@ function renderModal(product) {
           <li class="description-product-modal">${product.DescriptionHtmlSimple}</li>
           <div class="product-detail__add modal-addToCart">
             <button id="addToCart" data-id="${product.Id}">Add to Cart</button>
+            <button id="addToWish" data-id="${product.Id}"><img src="../images/logos/wish-logo.png" alt="icon wish"></button>
           </div>
         </ul>
         <img src="${product.Images.PrimaryLarge}" alt="Image Of ${product.Name}" />

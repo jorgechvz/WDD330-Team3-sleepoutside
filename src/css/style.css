@@ -334,7 +334,8 @@ button {
   grid-row: 1/3;
   max-width: 100%;
 }
-.cart-card .deleteBtn {
+.cart-card .deleteBtn,
+.cart-card .deleteBtn-wish {
   border-radius: 20px;
   padding: 0.5em 1em;
 }
@@ -466,7 +467,77 @@ button {
 .modal-addToCart #addToCart {
   margin: 0;
 }
+
 /* End Modal Styles */
+
+/* wish list */
+
+.icon-container {
+  display: flex;
+  width: 20%;
+  justify-content: space-between;
+}
+
+.wish img {
+  margin: 14px 0;
+}
+
+.product-detail__add > #addToWish {
+  position: absolute;
+  right: 19%;
+  bottom: -22%;
+}
+#addToWish {
+  border-radius: 50%;
+  height: 74px;
+  width: 0px;
+  display: flex;
+  justify-content: center;
+  background-color: #ffffff;
+  border: 3px solid #000;
+}
+
+#addToWish:hover {
+  background-color: #78c602;
+}
+
+#addToWish img {
+  width: 200px;
+  height: 100%;
+  max-width: none;
+}
+
+.product-detail__add {
+  position: relative;
+}
+
+.wish-btn {
+  position: absolute;
+  right: 0%;
+  bottom: 460%;
+}
+
+.deleteBtn-wish {
+  background-color: var(--light-grey);
+  align-self: center;
+  justify-self: center;
+  grid-column: 4/5;
+  grid-row: 1/2;
+  width: 69px;
+}
+
+.wish .length-wish {
+  background-color: var(--primary-color);
+  color: var(--dark-grey);
+  border-radius: 50%;
+  font-size: 0.9em;
+  top: -49%;
+  right: 13px;
+  padding: 0.1em 0.3em;
+  position: relative;
+}
+
+/* End Wish List */
 
 @media screen and (min-width: 500px) {
   body {

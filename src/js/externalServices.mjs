@@ -30,7 +30,7 @@ export async function checkout(payload) {
   return await fetch(`${baseURL}checkout/`, options).then(convertToJson);
 }
 
-export async function loginRequest(creds){
+export async function loginRequest(creds) {
   const options = {
     method: "POST",
     headers: {
@@ -42,7 +42,20 @@ export async function loginRequest(creds){
   return response.accessToken;
 }
 
-export async function getOrders(token){
+export async function registerRequest(creds) {
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(creds),
+    action: "/login/index.html",
+  };
+  const response = await fetch(`${baseURL}/register`, options).then(convertToJson);
+  return response.accessToken;
+}
+
+export async function getOrders(token) {
   const options = {
     method: "GET",
     headers: {
@@ -53,7 +66,7 @@ export async function getOrders(token){
   return response;
 }
 
-export async function searchProduct(token){
+export async function searchProduct(token) {
   const options = {
     method: "GET",
     headers: {

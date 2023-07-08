@@ -17,22 +17,40 @@ export default function shoppingCart() {
 function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
-    <img
-      src="${item.Images.PrimarySmall}"
-      alt="${item.Name}"
+  <picture>
+    <source
+      media="(max-width: 200px)"
+      srcset="${item.Images.PrimarySmall}"
     />
+    <source
+      media="(max-width: 320px)"
+      srcset="${item.Images.PrimaryMedium}"
+    />
+    <source
+      media="(max-width: 800px)"
+      srcset="${item.Images.PrimaryLarge}"
+    />
+    <source
+      media="(max-width: 2100px)"
+      srcset="${item.Images.PrimaryExtraLarge}"
+    />
+    <img
+      class="product__image"
+      src="${item.Images.ExtraImages && item.Images.ExtraImages[0].Src}"
+      alt="Image of ${item.Name}"
+      loading="lazy"
+    />
+  </picture>
   </a>
   <a href="#">
     <h2 class="card__name">${item.Name}</h2>
   </a>
   <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">qty: <input type="number" min="1" value="${
-    item.Quantity
-  }" class="quantity-input" data-id="${item.Id}"/></p>
+  <p class="cart-card__quantity">qty: <input type="number" min="1" value="${item.Quantity
+    }" class="quantity-input" data-id="${item.Id}"/></p>
   <p class="cart-card__price">$${(item.FinalPrice * item.Quantity).toFixed(2)}</p>
-  <button class="deleteBtn" data-id="${
-    item.Id
-  }"><span class="xBtn"><img src="../../images/trash.svg" alt="Icon Trash"/></span></button>
+  <button class="deleteBtn" data-id="${item.Id
+    }"><span class="xBtn"><img src="../../images/trash.svg" alt="Icon Trash"/></span></button>
 </li>`;
   return newItem;
 }
@@ -80,7 +98,7 @@ function deleteProduct(event) {
       // Re-render the cart list with the updated cartItems
       const selectorCart = document.querySelector('.product-list');
       renderListWithTemplate(cartItemTemplate, selectorCart, cartItems);
-      
+
       // Update the total cart price
       renderTotalCart(cartItems);
       updateCartItemCount();

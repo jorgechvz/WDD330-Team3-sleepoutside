@@ -19,7 +19,13 @@
         <img src="/images/noun_Tent_2517.svg" alt="tent image for logo" />
         <a href="../index.html"> Sleep<span class="highlight">Outside</span></a>
       </div>
-
+      <div class='icon-container'>
+      <div class="wish">
+        <a href="../wish_list/index.html">
+          <img src="../images/logos/wish-logo.png" alt="Search Icon from Icons" width="30" />
+          <span class="length-wish"></span>
+        </a>
+      </div>
       <div class="cart">
         <a href="../cart/index.html">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
@@ -52,13 +58,14 @@
           ><span class="length-cart"></span>
         </a>
       </div>
+    </div>
     </header>
 
     <main class="divider discount-container">
       <section class="product-detail discount-position">
         <h3 id="productName"></h3>
         <h2 class="divider" id="productNameWithoutBrand"></h2>
-        <img id="productImage" class="divider" src="" alt="" />
+        <picture id="productImage" class="divider"/></picture>
         <p class="discount-indicator"><span></span></p>
         <p class="product-card__discount" id="productDiscount"></p>
         <p class="product-card__price" id="productFinalPrice"></p>
@@ -66,6 +73,9 @@
         <p class="product__description" id="productDescriptionHtmlSimple"></p>
         <div class="product-detail__add">
           <button id="addToCart" data-id="">Add to Cart</button>
+          <div class='wish-btn'>
+            <button id="addToWish" data-id=""><img src="../images/logos/wish-logo.png" alt=""></button>
+          </div>
         </div>
       </section>
     </main>
