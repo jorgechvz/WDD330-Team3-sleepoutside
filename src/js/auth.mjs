@@ -1,12 +1,23 @@
 import jwt_decode from 'jwt-decode';
-import { loginRequest } from './externalServices.mjs';
+import { loginRequest, registerRequest } from './externalServices.mjs';
 import { alertMessage, getLocalStorage, setLocalStorage } from './utils.mjs';
 
 const tokenKey = 'so-token';
 
-export async function login(creds, redirect="/") {
+export async function login(creds, redirect = "/") {
   try {
     const token = await loginRequest(creds);
+    console.log(token);
+    setLocalStorage(tokenKey, token);
+    window.location = redirect;
+  } catch (err) {
+    alertMessage(err.message.message);
+  }
+}
+
+export async function register(creds, redirect = "/") {
+  try {
+    const token = await registerRequest(creds);
     console.log(token);
     setLocalStorage(tokenKey, token);
     window.location = redirect;

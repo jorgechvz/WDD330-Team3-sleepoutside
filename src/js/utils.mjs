@@ -129,6 +129,16 @@ export function removeAllAlerts() {
 }
 
 export function updateCartItemCount() {
+
+  const countWishElement = document.querySelector('.wish .length-wish');
+  if (countWishElement) {
+    const getItems = getLocalStorage('wish-list');
+    const getQuantities = getItems.map((item) => item.Quantity);
+    const totalQuantity = getQuantities.reduce((totalItem, item) => totalItem + item, 0);
+    countWishElement.innerHTML = totalQuantity;
+  } else {
+    setTimeout(updateCartItemCount, 1);
+  }
   const countElement = document.querySelector('.cart .length-cart');
   if (countElement) {
     const getItems = getLocalStorage('so-cart');
