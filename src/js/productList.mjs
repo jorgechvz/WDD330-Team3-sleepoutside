@@ -29,6 +29,7 @@ export function productListBySearch(selector) {
     .then((fetchedProducts) => {
       products = fetchedProducts;
       filterBySearchName(selector);
+      eventModal();
     })
     .catch((error) => console.error(error));
 }
@@ -38,15 +39,13 @@ function renderProductList(container) {
   const filteredProducts = products.filter((product) => product.FinalPrice >= minPrice);
   filteredProducts; // Reverse the order of the filtered products
   renderListWithTemplate(productCardTemplate, container, filteredProducts, minPrice, 'afterbegin', true);
+  eventModal();
 }
 sliderInput.addEventListener('input', () => {
   sliderValue.textContent = `$${sliderInput.value}`;
   const container = document.querySelector('.product-list');
   renderProductList(container);
 });
-
-// Call productList function to initiate rendering
-productList('.product-list', 'category'); // Replace 'category' with your desired category
 
 
 function productCardTemplate(product) {
